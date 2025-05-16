@@ -1,40 +1,50 @@
 <x-layout>
   <x-slot:header>
-    {{ $show->title }}
-    <p class="text-xs text-gray-500">({{ $show->user->name }})</p>
+    <div class="text-center">
+      <h1 class="text-5xl font-extrabold tracking-tight uppercase">{{ $show->title }}</h1>
+      <p class="text-sm mt-3 text-[#ee4674] tracking-wide">Režiser: {{ $show->director }} | Objavio: {{ $show->user->name }}</p>
+    </div>
   </x-slot:header>
 
-  <section class="bg-gray-100 p-6 rounded-lg shadow-lg max-w-4xl mx-auto mt-6">
-    <div class="flex flex-col md:flex-row items-center gap-6">
+  <section class="grid grid-cols-1 md:grid-cols-2 bg-[#f3f4f6] text-[#1f2937] py-16 px-4 md:px-12 gap-12">
 
-      <div class="md:w-1/2 w-full">
-        <img src="{{ asset("storage/{$show->image_path}") }}" alt="Show Image" class="rounded-lg shadow-md w-full">
-      </div>
+  <div class="relative">
+    <img src="{{ asset("storage/{$show->image_path}") }}"
+         alt="Slika predstave"
+         class="rounded-lg w-full h-auto max-h-[500px] object-cover object-top">
+    
+    <div class="absolute bottom-4 left-4 bg-[#ee4674] text-white text-xs px-3 py-1 uppercase tracking-widest rounded">
+      Premijera
+    </div>
+  </div>
 
-      <div class="md:w-1/2 w-full">
-        <h2 class="text-2xl font-bold text-gray-800">{{ $show->title }}</h2>
-        <p class="text-gray-600 mt-2">{{ $show->description }}</p>
-        <div class="mt-4 space-y-2">
-          <p class="text-gray-600"><span class="font-semibold">Datum:</span> {{ $show->date }}</p>
-          <p class="text-gray-600"><span class="font-semibold">Vrijeme:</span> {{ $show->start_time }}</p>
-          <p class="text-gray-600"><span class="font-semibold">Mjesto održavanja:</span> {{ $show->hall->name }}</p>
-          <p class="text-gray-600"><span class="font-semibold">Režiser:</span> {{ $show->director }}</p>
-          <p class="text-gray-600"><span class="font-semibold">Slobodni sedišta:</span> {{ $show->available_seats }}</p>
-        </div>
-      </div>
+  <div class="flex flex-col justify-center space-y-8 max-w-xl">
+    <div>
+      <h2 class="text-3xl font-bold uppercase mb-4">Opis</h2>
+      <p class="text-lg leading-relaxed text-gray-700">{{ $show->description }}</p>
     </div>
 
-    <!-- Buttons -->
-    <div class="mt-6 flex justify-between">
-      <x-button href="{{ route('seats.index', ['id' => $show->id]) }}" class="bg-blue-600 hover:bg-blue-700 text-white">
-        Prikaži sedišta
-      </x-button>
+    <div class="space-y-3 text-md text-gray-800">
+      <p><span class="font-semibold">📅 Datum:</span> {{ $showTime->date }}</p>
+      <p><span class="font-semibold">⏰ Vrijeme:</span> {{ $showTime->start_time }}</p>
+      <p><span class="font-semibold">📍 Lokacija:</span> {{ $showTime->hall->name }}</p>
+      <p><span class="font-semibold">💺 Slobodna mesta:</span> {{ $availableSeats }}</p>
+    </div>
+
+    <div class="pt-6 flex gap-4">
+      <a href="{{ route('seats.index', ['id' => $show->id]) }}"
+         class="px-6 py-3 bg-[#ee4674] text-white uppercase font-bold tracking-wider hover:bg-black transition rounded">
+        🎟 Prikaži sedišta
+      </a>
 
       @can('admin')
-      <x-button href="{{ route('shows.edit', ['show' => $show->id]) }}" class="bg-gray-600 hover:bg-gray-700 text-white">
-        Edit Show
-      </x-button>
+      <a href="{{ route('shows.edit', ['show' => $show->id]) }}" 
+         class="px-6 py-3 bg-gray-400 text-black uppercase font-bold tracking-wider hover:bg-gray-500 transition rounded">
+        ✏️ Uredi predstavu
+      </a>
       @endcan
     </div>
-  </section>
+  </div>
+</section>
+
 </x-layout>

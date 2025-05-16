@@ -11,7 +11,7 @@ class Reservation extends Model
 
     protected $fillable = [
         'user_id',
-        'show_id',
+        'show_time_id',
         'seat_id',
         'type',
         'price',
@@ -23,15 +23,13 @@ class Reservation extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function show()
-    {
-        return $this->belongsTo(Show::class);
-    }
-
     public function seat()
     {
         return $this->belongsTo(Seat::class);
     }
 
-    
+    public function showTime()
+    {
+        return $this->belongsTo(ShowTime::class);
+    }
 }

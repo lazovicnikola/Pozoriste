@@ -47,7 +47,7 @@
         <div class="info">
             <p><strong>Ime:</strong> {{ $user->name }}</p>
             <p><strong>Email:</strong> {{ $user->email }}</p>
-            <p><strong>Predstava:</strong> {{ $show->title }}</p>
+            <p><strong>Predstava:</strong> {{ $show->show->title }}</p>
             <p><strong>Vreme:</strong> {{ $show->start_time }} - {{ $show->date }}</p>
         </div>
 

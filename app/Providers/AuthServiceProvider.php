@@ -15,7 +15,6 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // Map your models to policies
         User::class => UserPolicy::class,
     ];
 

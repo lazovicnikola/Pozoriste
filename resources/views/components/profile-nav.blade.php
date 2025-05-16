@@ -6,7 +6,7 @@
             <ul class="flex items-center space-x-4">
                 <li class="text-sm font-medium">
                     <button id="songs-btn"  class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition duration-300 ease-in-out px-4 py-2 rounded-full hover:bg-blue-50 dark:hover:bg-blue-600">
-                        My Songs
+                        Users
                     </button>
                 </li>
                 <li class="text-sm font-medium">
@@ -22,4 +22,4 @@
             </ul>
         </div>
     </div>
-</nav>`
+</nav>

@@ -57,28 +57,39 @@
           </x-form-field>
 
           <x-form-field>
-            <x-form-label for="base_price">Cijena</x-form-label>
+            <x-form-label for="price">Cijena</x-form-label>
             <div class="mt-2">
-              <x-form-input type="number" name="base_price" id="base_price" placeholder="10.00$" required></x-form-input>
-              <x-form-error name="base_price" />
+              <x-form-input type="number" name="price" id="price" placeholder="10.00$" required></x-form-input>
+              <x-form-error name="price" />
             </div>
           </x-form-field>
 
           <x-form-field>
-            <x-form-label for="date">Datum</x-form-label>
-            <div class="mt-2">
-              <x-form-input type="date" name="date" id="date" required></x-form-input>
-              <x-form-error name="date" />
-            </div>
+            <x-form-label for="dates">Odaberi datume</x-form-label>
+            <input
+              type="text"
+              id="dates"
+              name="dates"
+              class="flatpickr-input"
+              placeholder="Izaberi datume"
+              required />
+            <x-form-error name="dates" />
           </x-form-field>
 
+
           <x-form-field>
-            <x-form-label for="start_time">Vrijeme pocetka</x-form-label>
-            <div class="mt-2">
-              <x-form-input type="time" name="start_time" id="start_time" required></x-form-input>
-              <x-form-error name="start_time" />
+            <x-form-label for="start_time">Odaberi vremena</x-form-label>
+            <div class="mt-2 flex space-x-4"> 
+              @foreach (['12:00', '16:00', '20:00'] as $time)
+              <label class="flex items-center space-x-2">
+                <input type="radio" name="start_time" value="{{ $time }}">
+                <span>{{ $time }}</span>
+              </label>
+              @endforeach
             </div>
+            <x-form-error name="start_time" />
           </x-form-field>
+
 
           <x-form-field>
             <x-form-label for="image_path">Ubaci sliku</x-form-label>
@@ -88,9 +99,9 @@
             </div>
           </x-form-field>
 
-          <div class="mt-2" hidden>
+          <!-- <div class="mt-2" hidden>
             <x-form-input type="hidden" name="user_id" id="user_id" value="{{auth()->user()->id}}"></x-form-input>
-          </div>
+          </div> -->
 
         </div>
       </div>
@@ -103,3 +114,9 @@
   </form>
 
 </x-layout>
+<script>
+  flatpickr("#dates", {
+    mode: "multiple",
+    dateFormat: "Y-m-d"
+  });
+</script>

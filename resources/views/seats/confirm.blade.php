@@ -13,7 +13,7 @@
                     <th class="p-3 text-left">Predstava</th>
                     <th class="p-3 text-left">Vrijeme</th>
                     <th class="p-3 text-left">Red</th>
-                    <th class="p-3 text-left">Sedište</th>
+                    <th class="p-3 text-left">Sjedište</th>
                     <th class="p-3 text-left">Vrsta ulaznice</th>
                     <th class="p-3 text-left">Cijena (€)</th>
                 </tr>
@@ -21,20 +21,20 @@
             <tbody>
                 @foreach ($seats as $seat)
                 <tr class="border-t seat-row">
-                    <td class="p-3">{{ $show->title }}</td>
-                    <td class="p-3">{{ $show->start_time }}</td>
+                    <td class="p-3">{{ $showTime->show->title }}</td>
+                    <td class="p-3">{{ $showTime->start_time }}</td>
                     <td class="p-3">{{ $seat->row }}</td>
                     <td class="p-3">{{ $seat->number }}</td>
 
                     <td class="p-3">
                         <select name="ticket_type[]" class="border p-2 rounded type" onchange="updatePrice(this); updateType(this,'{{ $seat->id }}');">
-                            <option value="Regular" data-price="{{ $show->base_price * 1}}" selected>Obični kupci</option>
-                            <option value="Student" data-price="{{ $show->base_price * 0.7 }}">Student</option>
+                            <option value="Regular" data-price="{{ $showTime->price * 1}}" selected>Obični kupci</option>
+                            <option value="Student" data-price="{{ $showTime->price * 0.7 }}">Student</option>
                         </select>
                     </td>
 
                     <td class="p-3">
-                        <input type="text" class="border p-2 w-20 rounded text-center price" name="ticket_price[]" value="{{ $show->base_price }}" readonly>
+                        <input type="text" class="border p-2 w-20 rounded text-center price" name="ticket_price[]" value="{{ $showTime->price }}" readonly>
                     </td>
                 </tr>
                 @endforeach
@@ -60,7 +60,7 @@
         <form action="{{ route('seats.store') }}" method="POST" class="mt-6">
             @csrf
 
-            <input type="hidden" name="show_id" value="{{ $show->id }}">
+            <input type="hidden" name="show_time_id" value="{{ $showTime->id }}">
             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
             @foreach ($seats as $seat)
             <input type="hidden" name="seat_ids[]" value="{{ $seat->id }}">

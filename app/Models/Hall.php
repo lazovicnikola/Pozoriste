@@ -12,11 +12,12 @@ class Hall extends Model
     protected $table = "halls";
     protected $fillable = ['name', 'type', 'capacity'];
 
-    public function shows() {
-        return $this->hasMany(Show::class);
-    }
-
     public function seats() {
         return $this->hasMany(Seat::class);
+    }
+
+    public function showTimes()
+    {
+        return $this->hasMany(ShowTime::class);
     }
 }

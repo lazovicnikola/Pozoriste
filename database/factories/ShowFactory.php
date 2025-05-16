@@ -2,9 +2,13 @@
 
 namespace Database\Factories;
 
+
 use App\Models\Hall;
+use App\Models\Show;
+use App\Models\ShowTime;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use Carbon\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Show>
@@ -19,16 +23,30 @@ class ShowFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(),
+            'title' => fake()->city(),
             'description' => fake()->paragraph(),
-            'start_time' => fake()->time(),
-            'date' => fake()->date(),
-            'hall_id' => Hall::inRandomOrder()->first()->id,
             'user_id' => User::inRandomOrder()->first()->id,
             'director' => fake()->name(),
-            'base_price' => fake()->randomFloat(2, 0, 20),
             'image_path' => fake()->imageUrl(),
-            
         ];
+    }
+
+    public function configure()
+    {
+
+        return $this->afterCreating(function (Show $show) {
+
+            $futureDate = Carbon::now()->addDays(rand(1, 30));
+            $times = ['12:00', '16:00', '20:00'];
+            $startTime = $times[array_rand($times)];
+
+            ShowTime::create([
+                'show_id' => $show->id,
+                'hall_id' => Hall::inRandomOrder()->first()->id,
+                'date' => $futureDate->toDateString(),
+                'start_time' => $startTime,
+                'price' => fake()->randomFloat(2, 5, 30),
+            ]);
+        });
     }
 }

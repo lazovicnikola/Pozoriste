@@ -9,12 +9,13 @@ use App\Http\Controllers\SeatController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/home', [HomeController::class, 'topShows'])->name('home');
 
 Route::resource('shows', ShowController::class)->except('edit')->names([
     'index' => 'shows'
-]);
+])->middleware('auth');
 
 Route::get('/shows/{show}/edit', [ShowController::class,'edit'])->name('shows.edit');
 Route::patch('/shows/{show}/update', [ShowController::class,'update'])->name('shows.update');
@@ -34,7 +35,7 @@ Route::get('/shows/{id}/seats', [SeatController::class, 'index'])->name('seats.i
 Route::get('/showTickets', [SeatController::class, 'show'])->name('seats.show');
 
 
-Route::post('/seats/confirm', [ReservationController::class, 'confirmReservation'])->name('seats.confirm');
+Route::post('/seats/confirm', [ReservationController::class, 'confirmReservation'])->name('seats.confirm')->middleware('auth');
 Route::post('/seats/reserve', [ReservationController::class, 'store'])->name('seats.store');
 
 
@@ -43,3 +44,8 @@ Route::get('/settings', [SettingsController::class, 'index'])->name('settings')
     ->middleware('auth');
 Route::post('/settings', [SettingsController::class, 'update'])
     ->middleware('auth');
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index')->middleware('auth');
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
+Route::get('/review/{show}/{user}', [ProfileController::class, 'review'])->name('profile.review')->middleware('auth');
+Route::delete('/reservation/{reservation}', [ProfileController::class, 'destroy'])->name('reservation.destroy');

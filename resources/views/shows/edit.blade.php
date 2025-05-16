@@ -20,7 +20,7 @@
                                 <input type="text" name="title" id="title"
                                     class="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
                                     placeholder="Shift Leader"
-                                    value="{{$show->title}}"
+                                    value="{{$show->show->title}}"
                                     required>
                             </div>
                             @error('title')
@@ -35,7 +35,7 @@
                         <label for="director" class="block text-sm font-medium text-gray-900">Reziser</label>
                         <div class="mt-2">
                             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                <input type="text" name="director" id="director" value="{{$show->director}}"
+                                <input type="text" name="director" id="director" value="{{$show->show->director}}"
                                     class="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
                                     required>
                             </div>
@@ -53,7 +53,7 @@
                                 <textarea name="description" id="description"
                                     class="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
                                     placeholder="Shift Leader"
-                                    required>{{$show->description}}</textarea>
+                                    required>{{$show->show->description}}</textarea>
                             </div>
                             @error('description')
                             <p class="mt-2 text-sm text-red-600">{{$message}}</p>
@@ -64,34 +64,38 @@
 
                     <div class="sm:col-span-4">
                         <label for="hall_id" class="block text-sm font-medium text-gray-900">Mjesto održavanja</label>
-                        <div class="mt-2 flex">
-
+                        <div class="mt-2 flex items-center">
                             <input type="radio" name="hall_id" id="hall_mala" value="1"
                                 {{ old('hall_id', $show->hall_id ?? '') == 1 ? 'checked' : '' }}>
-                            <p class="mr-4 ml-2 text-sm/6 font text-gray-900">Mala sala</p>
+                            <p class="mr-4 ml-2 text-sm text-gray-900">Mala sala</p>
 
                             <input type="radio" name="hall_id" id="hall_velika" value="2"
                                 {{ old('hall_id', $show->hall_id ?? '') == 2 ? 'checked' : '' }}>
-                            <p class="mr-4 ml-2 text-sm/6 font text-gray-900">Velika sala</p>
-
-                            @error('hall_id')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                            <p class="mr-4 ml-2 text-sm text-gray-900">Velika sala</p>
                         </div>
+                        <p class="mt-1 text-sm text-gray-500 italic">
+                            ⚠ Promjena sale briše sve postojeće rezervacije.
+                            Nastavite samo ako ste sigurni.
+                        </p>
+
+                        @error('hall_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
 
+
                     <div class="sm:col-span-4">
-                        <label for="base_price" class="block text-sm font-medium text-gray-900">Cijena</label>
+                        <label for="price" class="block text-sm font-medium text-gray-900">Cijena</label>
                         <div class="mt-2">
                             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                <input type="number" name="base_price" id="base_price"
+                                <input type="number" name="price" id="price"
+                                    step="0.01"
                                     class="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                                    placeholder="Shift Leader"
-                                    value="{{$show->base_price}}"
-                                    required>
+                                    placeholder="Cijena"
+                                    value="{{ $show->price }}" required>
                             </div>
-                            @error('base_price')
+                            @error('price')
                             <p class="mt-2 text-sm text-red-600">{{$message}}</p>
                             @enderror
                         </div>
@@ -113,37 +117,42 @@
                         </div>
                     </div>
 
-                    <div class="sm:col-span-4">
-                        <label for="start_time" class="block text-sm font-medium text-gray-900">Vrijeme pocetka</label>
-                        <div class="mt-2">
-                            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                <input type="time" name="start_time" id="start_time"
-                                    class="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                                    placeholder="Shift Leader"
-                                    value="{{$show->start_time}}"
-                                    required>
-                            </div>
-                            @error('start_time')
-                            <p class="mt-2 text-sm text-red-600">{{$message}}</p>
-                            @enderror
+                    <x-form-field>
+                        <x-form-label for="start_time">Odaberi vremena</x-form-label>
+                        <div class="mt-2 flex space-x-4">
+                            @foreach (['12:00', '16:00', '20:00'] as $time)
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="start_time" value="{{ $time }}"
+                                    @checked(old('start_time', $show->start_time ?? '') === $time )>
+                                <span>{{ $time }}</span>
+                            </label>
+                            @endforeach
                         </div>
-                    </div>
+                        <x-form-error name="start_time" />
+                    </x-form-field>
+
 
                     <div class="sm:col-span-4">
-                        <label for="image_path" class="block text-sm font-medium text-gray-900">Vrijeme pocetka</label>
+                        <label for="image_path" class="block text-sm font-medium text-gray-900">Odaberi sliku</label>
+
+
+                        @if (!empty($show->show->image_path))
+                        <div class="mb-4">
+                            <img src="{{ asset('storage/' . $show->show->image_path) }}" alt="Trenutna slika" class="w-32 h-auto rounded shadow">
+                            <p class="text-sm text-gray-600 mt-1">Trenutna slika</p>
+                        </div>
+                        @endif
+
                         <div class="mt-2 flex">
-
                             <input type="file" name="image_path" id="image_path"
-                                class="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                                placeholder="Shift Leader"
-                                value="{{$show->image_path}}"
-                                required>
-
-                            @error('image_path')
-                            <p class="mt-2 text-sm text-red-600">{{$message}}</p>
-                            @enderror
+                                class="block flex-1 border-0 bg-transparent py-1.5 px-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm">
                         </div>
+
+                        @error('image_path')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
+
 
                     <div class="mt-2" hidden>
                         <x-form-input type="hidden" name="user_id" id="user_id" value="{{auth()->user()->id}}"></x-form-input>

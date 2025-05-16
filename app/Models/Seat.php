@@ -8,11 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Seat extends Model
 {
     use HasFactory;
-    public $timestamps = true; 
+    public $timestamps = true;
     protected $table = "seats";
-    protected $fillable = ['row', 'number', 'is_reserved', 'show_id'];
+    protected $fillable = ['row', 'number', 'hall_id'];
 
-    public function show() {
-        return $this->belongsTo(Show::class);
+    public function hall()
+    {
+        return $this->belongsTo(Hall::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
     }
 }

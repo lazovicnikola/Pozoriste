@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:header>
-        <h1 class="text-4xl font-bold text-center text-gray-800">Crnogorsko narodno pozoriste</h1>
+        <h1 class="text-4xl font-extrabold text-center text-gray-800 dark:text-white tracking-tight uppercase">Pozoriste</h1>
     </x-slot:header>
 
    
@@ -17,28 +17,21 @@
         </div>
     </div> -->
 
-<!-- Sekcija sa top 5 predstava -->
+
 <div class="max-w-6xl mx-auto p-8">
-    <!-- <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Top 5 Predstava</h2> -->
+    <h2 class="text-2xl font-bold mb-4">Najpopularnije predstave</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
         @foreach ($topShows as $show)
         <div class="relative bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 transition duration-300">
-            <img src="{{ asset("storage/{$show->image_path}") }}" 
+            <img src="{{ asset("storage/{$show->show->image_path}") }}" 
                  alt="{{ $show->title }}" 
                  class="w-full h-60 object-cover">
 
             <div class="p-4">
-                <h3 class="text-xl font-semibold text-gray-900">{{ $show->title }}</h3>
+                <h3 class="text-xl font-semibold text-gray-900">{{ $show->show->title }}</h3>
                 <p class="text-gray-600 text-sm">📅 {{ $show->date }}</p>
                 <p class="text-gray-600 text-sm">🕒 {{ $show->start_time }}</p>
-
-                <div class="mt-3">
-                    <a href="{{ route('shows.show', $show->id) }}" 
-                       class="inline-block bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition">
-                        Više informacija
-                    </a>
-                </div>
             </div>
 
             <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-0 hover:opacity-50 transition duration-300"></div>

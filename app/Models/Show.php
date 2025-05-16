@@ -12,8 +12,7 @@ class Show extends Model
 {
     use HasFactory;
     protected $table = "show_listings";
-    protected $fillable = ['base_price','hall_id', 'description', 'title', 'start_time', 'date', 'user_id', 'venue', 'director', 'image_path'];
-
+    protected $fillable = ['user_id', 'title', 'description', 'director', 'image_path'];
 
 
     public function user()
@@ -21,18 +20,9 @@ class Show extends Model
         return $this->belongsTo(User::class);
     }
 
-
-    public function seats()
+    public function showTimes()
     {
-        return $this->hasMany(Seat::class);
+        return $this->hasMany(ShowTime::class);
     }
 
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
-
-    public function hall() {
-        return $this->belongsTo(Hall::class);
-    }
 }
