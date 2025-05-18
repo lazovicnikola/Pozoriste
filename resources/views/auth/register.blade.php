@@ -1,6 +1,6 @@
 <x-layout>
   <x-slot:header>
-    Register page
+    <h1 class="text-4xl font-extrabold text-center text-gray-800 dark:text-white tracking-tight uppercase">Registracija</h1>
   </x-slot:header>
 
   <!-- Form za registraciju usera -->

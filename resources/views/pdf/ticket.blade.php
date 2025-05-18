@@ -75,7 +75,8 @@
         <p><strong>Ukupno:</strong> {{ number_format(array_sum(array_column($reservations, 'price')), 2) }} €</p>
         <div class="info">
             <p><strong>Datum rezervacije:</strong> {{ $reservations[0]->reservation_time }}</p>
-            <p><strong>Napomena!</strong> <i>Rezervacija vazi samo 24 casa, ukoliko se karta ne preuzme u ovom periodu, rezervacija se odbija</i></p>
+            <p><strong><i>Napomena!</i></strong> <i>Rezervacija vazi samo 24 casa, ukoliko se karta ne preuzme u ovom periodu, rezervacija se odbija.</i></p>
+            <p><strong><i>Napomena!</i></strong> <i>Studenti su u obavezi da pri preuzimanju karte pokažu potvrdu o studiranju.</i></p>
         </div>
     </div>
 </body>

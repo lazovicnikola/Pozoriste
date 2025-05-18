@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservation;
 use App\Models\Seat;
-use App\Models\Show;
 use App\Models\ShowTime;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -23,7 +22,7 @@ class ReservationController extends Controller
 
         $show = ShowTime::findOrFail($request->input('show_time_id'));
         $user_id = Auth::id();
-    
+
         $ticketTypes = [
             'Regular' => 1,
             'Student' => 0.7,
@@ -54,7 +53,12 @@ class ReservationController extends Controller
             'reservations' => $reservations
         ]);
 
-        return $pdf->stream('rezervacija.pdf');
+
+        $pdf->save(storage_path('app/public/rezervacija.pdf'));
+
+        session()->flash('success', 'Uspješno ste rezervisali karte. Preuzmite PDF ispod.');
+
+        return redirect()->route('reservation.confirm');
     }
 
 
@@ -71,5 +75,12 @@ class ReservationController extends Controller
             'showTime' => $showTime,
             'seats' => $seats,
         ]);
+    }
+
+    public function deleteOldReservations()
+    {
+        $deleted = Reservation::where('created_at', '<', now()->subHours(24))->delete();
+
+        return redirect()->back()->with('success', "$deleted rezervacija je izbrisano koje su starije od 24h.");
     }
 }

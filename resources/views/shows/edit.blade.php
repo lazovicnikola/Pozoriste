@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:header>
-        Edit {{$show->title}}
+       <h1 class="text-4xl font-extrabold text-center text-gray-800 dark:text-white tracking-tight uppercase">Edit - {{ $show->show->title }}</h1> 
     </x-slot:header>
 
     <!-- Editovanje Pjesme -->

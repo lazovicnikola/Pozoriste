@@ -16,14 +16,10 @@ class ShowController extends Controller
 {
     public function index(Request $request)
     {
-        $currentDate = now();
+
 
         $query = ShowTime::with(['hall', 'show'])->withCount('reservations');
 
-
-        if (Auth::user()->role !== 'admin') {
-            $query->where('date', '>=', $currentDate);
-        }
 
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -32,6 +28,11 @@ class ShowController extends Controller
                     ->orWhere('description', 'like', "%{$search}%")
                     ->orWhere('director', 'like', "%{$search}%");
             });
+        }
+
+        if ($request->filled('date')) {
+            $date = $request->input('date');
+            $query->where('date', $date);
         }
 
         if ($request->input('sort') === 'popular') {
@@ -77,9 +78,11 @@ class ShowController extends Controller
 
     public function edit(Show $show)
     {
+
         $show = ShowTime::with('show')->where('show_id', $show->id)->first();
 
         return view('shows.edit', [
+            
             'show' => $show
         ]);
     }
@@ -213,6 +216,12 @@ class ShowController extends Controller
     public function destroy(Show $show)
     {
         $show->delete();
-        return redirect()->route('shows')->with('success', 'Show deleted successfully.');
+        return redirect()->route('shows')->with('success', 'Predstava je uspješno izbrisana.');
+    }
+
+    public function deleteOldShows()
+    {
+        $deleted = ShowTime::where('date', '<', now()->toDateString())->delete();
+        return redirect()->back()->with('success', "$deleted predstave su izbrisane koje su starije od danas.");
     }
 }

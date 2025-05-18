@@ -10,10 +10,16 @@ class HomeController extends Controller
     public function topShows()
     {
         $topShows = ShowTime::withCount('reservations', 'show')
-            ->orderBy('reservations_count', 'desc') 
+            ->orderBy('reservations_count', 'desc')
             ->take(5)
             ->get();
-    
-        return view('home', compact('topShows'));
+
+        $latestShows = Show::latest()->take(5)
+            ->orderBy('created_at', 'desc')
+            ->groupBy('title')
+            ->get();
+
+        return view('home', compact('topShows', 'latestShows'));
     }
+
 }

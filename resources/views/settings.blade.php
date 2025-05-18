@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:header>
-        Settings page
+     <h1 class="text-4xl font-extrabold text-center text-gray-800 dark:text-white tracking-tight uppercase">Settings page</h1>
     </x-slot:header>
 
     <!-- Forma za Prfile settings -->
@@ -80,9 +80,16 @@
         </div>
 
 
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-            <a href="{{ route('home') }}" class="text-sm/6 font-semibold text-gray-900">Cancel</a>
-            <x-form-button>Update</x-form-button>
+        <div class="mt-6 flex items-center justify-between gap-x-6 mb-8">
+            @cannot('admin')
+            <div class="flex items-center">
+                <a href="/user/{{ Auth::user()->id }}/delete" class="text-sm font-bold text-red-500">Delete</a>
+            </div>
+            @endcannot
+            <div>
+                <a href="{{ route('home') }}" class="text-sm/6 font-semibold text-gray-900 mr-8">Cancel</a>
+                <x-form-button>Update</x-form-button>
+            </div>
         </div>
     </form>
 

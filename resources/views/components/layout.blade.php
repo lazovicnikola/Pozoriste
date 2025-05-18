@@ -21,20 +21,21 @@
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
-            <a href="/home" class="flex items-center">
-              <img class="h-8 w-8" src="{{ asset('../img/logo.png') }}" alt="Your Company">
-              <span class="ml-3 text-white text-lg font-semibold"><i>Podgoricko pozoriste</i></span>
+            <a href="/home" class="mr-8">
+              <img class="h-[65px] w-auto" src="{{ asset('images/logo5.png') }}" alt="Your Company">
             </a>
-            <div class="hidden md:flex space-x-6 ml-10">
-              <a href="/home" class="text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-              <a href="/shows" class="text-white  px-3 py-2 rounded-md text-sm font-medium">Reperotar</a>
+            <div class="hidden md:flex space-x-6">
+              <a href="/home" class="{{ request()->routeIs('home') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} px-3 py-2 rounded-md text-sm font-medium">Početna</a>
+              <a href="/shows" class="{{ request()->routeIs('shows') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} px-3 py-2 rounded-md text-sm font-medium">Reperotar</a>
             </div>
           </div>
+
           <div class="hidden md:flex items-center space-x-4">
             @guest
-            <a href="/login" class="text-white  px-3 py-2 rounded-md text-sm font-medium">Log In</a>
-            <a href="/register" class="text-white  px-3 py-2 rounded-md text-sm font-medium">Register</a>
+            <a href="/login" class="{{ request()->routeIs('login') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} px-3 py-2 rounded-md text-sm font-medium">Prijava</a>
+            <a href="/register" class="{{ request()->routeIs('register') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} px-3 py-2 rounded-md text-sm font-medium">Registracija</a>
             @endguest
+
             @auth
             <a href="/profile"
               class="inline-flex items-center gap-2 px-3 py-1.5 bg-white text-gray-700 rounded-full border border-gray-300 shadow-sm hover:bg-gray-100 transition-all duration-200">
@@ -46,10 +47,11 @@
 
             <form action="/logout" method="POST" class="inline">
               @csrf
-              <button type="submit" class="text-red-500  px-3 py-2 rounded-md text-sm font-medium">Log Out</button>
+              <button type="submit" class="text-red-500 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Odjava</button>
             </form>
             @endauth
           </div>
+
           <div class="md:hidden flex items-center">
             <button id="mobile-menu-button" class="text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
               <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -61,9 +63,8 @@
       </div>
       <div id="mobile-menu" class="hidden md:hidden">
         <div class="space-y-1 px-2 pb-3 pt-2">
-          <a href="/home" class="block text-gray-300 px-3 py-2 rounded-md text-base font-medium">Home</a>
-          <a href="/shows" class="block text-gray-300 px-3 py-2 rounded-md text-base font-medium">Reperotar</a>
-          <a href="/repertoar" class="block text-gray-300 hover:bg-gray-700 px-3 py-2 rounded-md text-base font-medium">Users List</a>
+          <a href="/home" class="{{ request()->routeIs('home') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} block text-gray-300 px-3 py-2 rounded-md text-base font-medium">Početna</a>
+          <a href="/shows" class="{{ request()->routeIs('shows') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} block text-gray-300 px-3 py-2 rounded-md text-base font-medium">Reperotar</a>
         </div>
 
 
@@ -71,17 +72,17 @@
         @auth
         <div class="border-t border-gray-700 pb-3 pt-4">
           <div class="flex items-center px-5">
-            <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/100" alt="{{ auth()->user()->name }}">
+            <img class="h-10 w-10 rounded-full" src="https://ui-avatars.com/api/?name={{ auth()->user()->name . ' ' . auth()->user()->last_name }}&background=6366F1&color=fff&rounded=true&size=64" alt="{{ auth()->user()->name }}">
             <div class="ml-3">
               <div class="text-base font-medium text-white">{{ auth()->user()->name }}</div>
               <div class="text-sm font-medium text-gray-400">{{ auth()->user()->email }}</div>
             </div>
           </div>
           <div class="mt-3 space-y-1 px-2">
-            <a href="/profile" class="block text-gray-300 px-3 py-2 rounded-md text-base font-medium">Your Profile</a>
-            <form action="/logout" method="POST" class="block">
+            <a href="/profile" class="{{ request()->routeIs('profile') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} block px-3 py-2 rounded-md text-base font-medium">Profil</a>
+            <form action="/logout" method="POST" class="text-red-500 hover:bg-gray-700 hover:text-white rounded-md text-sm font-medium block">
               @csrf
-              <button type="submit" class="w-full text-left text-red-500 px-3 py-2 rounded-md text-base font-medium">Log Out</button>
+              <button type="submit" class="w-full text-left text-red-500 px-3 py-2 rounded-md text-base font-medium">Odjava</button>
             </form>
           </div>
         </div>
@@ -90,8 +91,8 @@
         <!-- Guest Links -->
         @guest
         <div class="border-t border-gray-700 pb-3 pt-4">
-          <a href="/login" class="block text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium">Log In</a>
-          <a href="/register" class="block text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium">Register</a>
+          <a href="/login" class="{{ request()->routeIs('login') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} block px-3 py-2 rounded-md text-base font-medium">Prijava</a>
+          <a href="/register" class="{{ request()->routeIs('register') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} block px-3 py-2 rounded-md text-base font-medium">Registracija</a>
         </div>
         @endguest
       </div>
@@ -118,19 +119,18 @@
     <div class="max-w-screen-xl mx-auto px-4 text-center">
       <!-- Quick Links -->
       <div class="space-y-2 mb-4">
-        <a href="/home" class="hover:text-blue-400">Home</a>
-        <a href="/about" class="hover:text-blue-400">About Us</a>
-        <a href="/contact" class="hover:text-blue-400">Contact</a>
+        <a href="/home" class="hover:text-blue-400">Početna</a>
+        <a href="/about" class="hover:text-blue-400">O nama</a>
+        <a href="/faq" class="hover:text-blue-400">FAQ</a>
       </div>
 
       <!-- Copyright -->
-      <p class="text-sm">&copy; {{ date('Y') }} Your Company. All rights reserved.</p>
+      <p class="text-sm">&copy; {{ date('Y') }} Podgoričko pozorište. Sva prava su rezervisana.</p>
     </div>
   </footer>
 
 
   <script>
-    // Toggle mobile menu
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
 

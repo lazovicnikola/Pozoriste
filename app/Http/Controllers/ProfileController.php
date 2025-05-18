@@ -13,8 +13,7 @@ class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-
-        $query = User::where('id', '!=', Auth::user()->id);
+        $query = User::query();
 
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -23,6 +22,9 @@ class ProfileController extends Controller
                     ->orWhere('email', 'like', "%{$search}%");
             });
         }
+
+        $query->orderByRaw("CASE WHEN role = 'admin' THEN 0 ELSE 1 END")
+            ->orderBy('name');
 
         $users = $query->simplePaginate(6);
 
@@ -34,6 +36,7 @@ class ProfileController extends Controller
             'reservations' => $reservations
         ]);
     }
+
 
 
     public function show(User $user)
@@ -72,6 +75,6 @@ class ProfileController extends Controller
     {
         $reservation->delete();
 
-        return back()->with('success', 'Sjediste je otkazano.');
+        return back()->with('success', 'Sjedište '.$reservation->seat->row . $reservation->seat->number . ' je uspješno otkazano.');
     }
 }

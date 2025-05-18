@@ -1,6 +1,6 @@
 <x-layout>
   <x-slot:header>
-    Register page
+  <h1 class="text-4xl font-extrabold text-center text-gray-800 dark:text-white tracking-tight uppercase">Prijava</h1>
   </x-slot:header>
 
   <!-- Form za login usera -->
@@ -9,7 +9,7 @@
 
     <div class="space-y-12">
       <div class="border-b border-gray-900/10 pb-12">
-        <div class=" grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class=" grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-20">
 
 
 
@@ -31,7 +31,7 @@
           </x-form-field>
 
         </div>
-      </div>
+    </div>
     </div>
 
     <div class="mt-6 flex items-center justify-end gap-x-6">

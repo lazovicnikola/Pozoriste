@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:header>
-        <h1 class="text-4xl font-bold text-center text-gray-800">Rezervacija</h1>
+        <h1 class="text-4xl font-extrabold text-center text-gray-800 dark:text-white tracking-tight uppercase"> Potvrdi rezervaciju</h1>
     </x-slot:header>
 
     <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg overflow-x-auto gap-4">
@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($seats as $seat)
+                @foreach ($seats as $seat) 
                 <tr class="border-t seat-row">
                     <td class="p-3">{{ $showTime->show->title }}</td>
                     <td class="p-3">{{ $showTime->start_time }}</td>

@@ -1,6 +1,6 @@
 <x-layout>
   <x-slot:header>
-    Create page
+    <h1 class="text-4xl font-extrabold text-center text-gray-800 dark:text-white tracking-tight uppercase">Create page</h1>
   </x-slot:header>
 
   <form method="POST" action="{{ route('shows.store') }}" enctype="multipart/form-data">
