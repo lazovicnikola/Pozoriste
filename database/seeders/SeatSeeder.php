@@ -13,7 +13,6 @@ class SeatSeeder extends Seeder
      */
     public function run(): void
     {
-        // Pronalazimo sale ili ih kreiramo ako ne postoje
         $largeHall = Hall::firstOrCreate(['name' => 'Velika Sala']);
         $smallHall = Hall::firstOrCreate(['name' => 'Mala Sala']);
 
@@ -34,7 +33,7 @@ class SeatSeeder extends Seeder
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
         ];
 
-        // Definišemo raspored sedišta za malu salu
+
         $smallHallRows = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
         $smallHallSeats = [
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -46,23 +45,23 @@ class SeatSeeder extends Seeder
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         ];
 
-        // Ubacivanje sedišta za veliku salu
+
         foreach ($largeHallRows as $rowIndex => $row) {
             foreach ($largeHallSeats[$rowIndex] as $seatNumber) {
                 Seat::create([
                     'row' => $row,
                     'number' => $seatNumber,
-                    'hall_id' => $largeHall->id, // Veza sa velikom salom
+                    'hall_id' => $largeHall->id, 
                 ]);
             }
         }
-        // Ubacivanje sedišta za malu salu
+
         foreach ($smallHallRows as $rowIndex => $row) {
             foreach ($smallHallSeats[$rowIndex] as $seatNumber) {
                 Seat::create([
                     'row' => $row,
                     'number' => $seatNumber,
-                    'hall_id' => $smallHall->id, // Veza sa malom salom
+                    'hall_id' => $smallHall->id, 
                 ]);
             }
         }

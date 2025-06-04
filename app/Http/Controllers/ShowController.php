@@ -82,7 +82,7 @@ class ShowController extends Controller
         $show = ShowTime::with('show')->where('show_id', $show->id)->first();
 
         return view('shows.edit', [
-            
+
             'show' => $show
         ]);
     }
@@ -93,7 +93,6 @@ class ShowController extends Controller
             'title' => 'required',
             'description' => 'required',
             'director' => 'required',
-
             'price' => 'required|numeric|min:0',
             'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'start_time' => 'required',
@@ -206,6 +205,17 @@ class ShowController extends Controller
     }
 
 
+    public function reservations(Show $show)
+    {
+        $reservations = $show->showTimes()
+            ->with('reservations')
+            ->get()
+            ->flatMap(function ($showTime) {
+                return $showTime->reservations;
+            });
+
+        return view('shows.reservations', compact('show', 'reservations'));
+    }
 
 
     public function create(Show $show)
@@ -216,7 +226,7 @@ class ShowController extends Controller
     public function destroy(Show $show)
     {
         $show->delete();
-        return redirect()->route('shows')->with('success', 'Predstava je uspješno izbrisana.');
+        return redirect()->route('shows')->with('success', 'Predstava ' . $show->title . ' je uspješno izbrisana.');
     }
 
     public function deleteOldShows()

@@ -11,14 +11,9 @@
                 Cilj nam je digitalizovati iskustvo kupovine ulaznica i učiniti ga pristupačnijim svima.
             </p>
 
-            <h2 class="text-2xl font-semibold text-blue-600">👥 Naš tim</h2>
-            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Iza ovog projekta stoji mali, ali posvećen tim developera, dizajnera i zaljubljenika u umjetnost. Vjerujemo u moć tehnologije da poveže ljude s kulturom.
-            </p>
-
             <h2 class="text-2xl font-semibold text-blue-600">📍 Gdje nas možete naći?</h2>
             <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Nalazimo se u srcu Sarajeva, ali naša digitalna vrata su otvorena svima širom Balkana. Radujemo se vašem dolasku!
+                Nalazimo se u Podgorici, ali naša digitalna vrata su otvorena svima širom Balkana. Radujemo se vašem dolasku!
             </p>
 
             <div class="text-center mt-8">

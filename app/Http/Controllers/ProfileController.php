@@ -43,7 +43,7 @@ class ProfileController extends Controller
     {
         $user = User::find($user->id);
         $reservations = Reservation::where('user_id', $user->id)
-            ->groupBy('show_time_id')
+            ->groupBy('show_time_id') 
             ->with(['showTime.hall', 'showTime.show', 'seat'])
             ->get();
 

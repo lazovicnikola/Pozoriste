@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:header>
-       <h1 class="text-4xl font-extrabold text-center text-gray-800 dark:text-white tracking-tight uppercase">Edit - {{ $show->show->title }}</h1> 
+       <h1 class="text-4xl font-extrabold text-center text-gray-800 dark:text-white tracking-tight uppercase">Izmijeni - {{ $show->show->title }}</h1> 
     </x-slot:header>
 
     <!-- Editovanje Pjesme -->
@@ -118,7 +118,7 @@
                     </div>
 
                     <x-form-field>
-                        <x-form-label for="start_time">Odaberi vremena</x-form-label>
+                        <x-form-label for="start_time">Odaberi vrijeme</x-form-label>
                         <div class="mt-2 flex space-x-4">
                             @foreach (['12:00', '16:00', '20:00'] as $time)
                             <label class="flex items-center space-x-2">
@@ -168,15 +168,15 @@
 
         <div class="mt-6 flex items-center justify-between gap-x-6">
             <div class="flex items-center">
-                <button form="delete-show" class="text-sm font-bold text-red-500">Delete</button>
+                <button form="delete-show" class="text-sm font-bold text-red-500">Izbriši</button>
             </div>
 
             <div class="flex gap-x-6 items-center">
-                <a href="/shows" class="text-sm font-semibold text-gray-900">Cancel</a>
+                <a href="/shows" class="text-sm font-semibold text-gray-900">Odustani</a>
                 <div>
                     <button type="submit"
                         class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Update
+                        Izmijeni
                     </button>
                 </div>
             </div>

@@ -65,3 +65,5 @@ Route::get('/about', function () {
 Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
+
+Route::get('/show/{show}/reservations', [ShowController::class, 'reservations'])->name('shows.reservations')->middleware('auth');

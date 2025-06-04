@@ -48,14 +48,14 @@
             <p><strong>Ime:</strong> {{ $user->name }}</p>
             <p><strong>Email:</strong> {{ $user->email }}</p>
             <p><strong>Predstava:</strong> {{ $show->show->title }}</p>
-            <p><strong>Vreme:</strong> {{ $show->start_time }} - {{ $show->date }}</p>
+            <p><strong>Vrijeme:</strong> {{ $show->start_time }} - {{ $show->date }}</p>
         </div>
 
         <table>
             <thead>
                 <tr>
                     <th>Red</th>
-                    <th>Sedište</th>
+                    <th>Sjedište</th>
                     <th>Vrsta ulaznice</th>
                     <th>Cena (€)</th>
                 </tr>

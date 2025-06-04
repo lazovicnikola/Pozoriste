@@ -32,7 +32,7 @@ class ReservationController extends Controller
 
         foreach ($request->seat_ids as $index => $seatId) {
             $type = $request->type_hidden[$index] ?? 'Regular';
-            $price = $show->price * ($ticketTypes[$type] ?? 1);
+            $price = round($show->price * ($ticketTypes[$type] ?? 1), 2);
 
             $reservation = Reservation::create([
                 'user_id' => $user_id,

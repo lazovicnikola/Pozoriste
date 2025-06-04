@@ -9,6 +9,7 @@
         @endif
         <p class="text-xs text-gray-500">({{ $user->email }})</p>
     </x-slot:header>
+    <h1 class="text-4xl font-extrabold text-center text-gray-800 dark:text-white tracking-tight mb-8 uppercase">Rezervacije</h1>
 
     <div class="w-full overflow-x-auto">
         <table class="min-w-full leading-normal border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg">
